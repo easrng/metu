@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>MeTu</title>
+</head>
+<body>
+<h1>MeTu</h1>
+  <img src="https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-{{KEY}}&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3D{{KEY}}">
+  <p>
+    MeTu is a simple upvote system.
+  </p>
+  <p>
+    Get yours now:
+    <input type="text" id="key" onchange="window.metukey=this.value" placeholder="Key (Use site/page/project title)"><button onclick="prompt('Image URL:',badge(metukey))">Get Badge URL</button>
+  </p>
+  <script>
+  function badge(key){
+   return "https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-{{KEY}}&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3D{{KEY}}".split("{{KEY}}").join(encodeURIComponent(key));
+  }
+  </script>
+</body>
+</html>
