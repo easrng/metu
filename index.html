@@ -1,64 +1,107 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>MeTu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MeTu</title>
 </head>
+
 <body>
-<!-- Modal -->
-<div class="modal fade" id="upvoteModal" tabindex="-1" role="dialog" aria-labelledby="upvoteModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="upvoteModalLabel">Do you want to upvote&nbsp;<span class="upvotekey"></span>?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to upvote&nbsp;<span class="upvotekey"></span>?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Upvote</button>
-      </div>
-    </div>
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="upvotetoast">
+  <div class="toast-header">
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Upvoted!
   </div>
 </div>
-  <div class="container-fluid card"><div class="card-body">
-    <h5 class="card-title">MeTu</h5>
-    <embed src="https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-metu&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3Dmetu">
-  
-<p>
-    MeTu is a simple upvote system.
-  </p>
-  <fieldset>
-    <legend>Get yours now:</legend>
-    <input type="text" id="key" class="form-control" placeholder="Key (Use site/page/project title)"><br>
-    <button onclick="prompt('Image URL:',badge($('#key').val()))"  type="button" class="btn btn-primary form-control">Get Badge URL</button>
-  </fieldset>
-  </div></div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="upvoteModal" tabindex="-1" role="dialog" aria-labelledby="upvoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="upvoteModalLabel">Do you want to upvote&nbsp;<span class="upvotekey"></span>?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to upvote&nbsp;<span class="upvotekey"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="upvotebtn" data-dismiss="modal">Upvote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid card">
+        <div class="card-body">
+            <h5 class="card-title">MeTu</h5>
+            <embed src="https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-metu&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3Dmetu">
 
-  <script>
-    function badge(key){
-     return "https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-{{KEY}}&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3D{{KEY}}".split("{{KEY}}").join(encodeURIComponent(key));
-    }
-    
-    $(document).ready(function (){
-      $.urlParam = function (name) {
-      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.search);
-        return (results !== null) ? results[1] || 0 : false;
-      }
-      if($.urlParam('upvote')){
-        $(".upvotekey").text($.urlParam('upvote'))
-        $('#upvoteModal').modal();
-      }
-    })
-  </script>
+            <p>
+                MeTu is a simple upvote system.
+            </p>
+            <fieldset>
+                <legend>Get yours now:</legend>
+                <input type="text" id="key" class="form-control" placeholder="Key (Use site/page/project title)"><br>
+                <button onclick="prompt('Image URL:',badge($('#key').val()))" type="button" class="btn btn-primary form-control">Get Badge URL</button>
+            </fieldset>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        function badge(key){
+         return "https://img.shields.io/endpoint.svg?color=red&url=https%3A%2F%2Fapi.myjson.com%2Fbins%2Fmetu-{{KEY}}&link=https%3A%2F%2Feasrng.github.io%2Fmetu%2F%3Fupvote%3D{{KEY}}".split("{{KEY}}").join(encodeURIComponent(key));
+        }
+        
+        $(document).ready(function (){
+          $.urlParam = function (name) {
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.search);
+            return (results !== null) ? results[1] || 0 : false;
+          }
+          var uvkey=$.urlParam('upvote');
+          if(uvkey){
+            var upvotebtn=$("#upvotebtn");
+            upvotebtn.click(function (){
+              fetch("https://api.myjson.com/bins/"+uvkey)
+                .then(function (j){return j.json()})
+                .then(function (j){return j.message*0})
+                .then(function (uv){
+                return fetch("https://api.myjson.com/bins/metu-"+uvkey, {
+            method: "PUT", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: "follow", // manual, *follow, error
+            body: JSON.stringify({
+            "schemaVersion": 1,
+            "message": ""+(uv+1),
+            "label": "MeTu"
+          })
+        })
+        .then(funtion (){
+              $("#upvotetoast").toast("show")
+              })
+              })
+            })
+            $(".upvotekey").text(uvkey);
+            $('#upvoteModal').modal();
+          }
+        })
+    </script>
 </body>
+
 </html>
